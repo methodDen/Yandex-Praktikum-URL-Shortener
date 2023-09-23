@@ -1,10 +1,11 @@
 import os
 
-from pydantic import (
-    PostgresDsn,
-    HttpUrl,
-)
+from logging import config as logging_config
 from pydantic_settings import BaseSettings
+
+from src.core.logger import LOGGING
+
+logging_config.dictConfig(LOGGING)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
