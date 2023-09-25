@@ -58,7 +58,7 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
 
     async def create_multi(self, db: AsyncSession, *, obj_in: CreateSchemaType) -> List[ModelType]:
         """
-        Create a new row in the database
+        Create multiple rows in the database
         """
         obj_in_data = jsonable_encoder(obj_in)
         db_objs = [self.model(**obj_in_data) for obj_in_data in obj_in_data]
