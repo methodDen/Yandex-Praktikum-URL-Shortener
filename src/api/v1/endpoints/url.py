@@ -1,3 +1,5 @@
+from typing import List
+
 from fastapi import (
     APIRouter,
     Depends,
@@ -22,10 +24,10 @@ async def create_short_url(
     return await url.create(db, obj_in=url_in)
 
 
-@router.post('/batch/', response_model=None)
+@router.post('/batch/', response_model=List[UrlResponseSchema], status_code=status.HTTP_201_CREATED)
 async def create_short_url_batch(
     *,
     db: AsyncSession = Depends(get_session),
-    url_list_in: None,
+    url_list_in: List[UrlRequestCreateSchema],
 ):
-    pass
+    return await url.create_multi(db, obj_in=url_list_in)
