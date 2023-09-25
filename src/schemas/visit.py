@@ -20,3 +20,8 @@ class VisitUpdateSchema(VisitBaseSchema):
 class VisitDBSchema(BaseModel):
     user_ip: str
     url_id: int
+
+
+class VisitNestedSchema(BaseModel):
+    user_ip: str
+    visit_datetime: datetime.datetime

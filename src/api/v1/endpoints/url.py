@@ -1,10 +1,11 @@
-from typing import List
+from typing import List, Optional
 
 from fastapi import (
     APIRouter,
     Depends,
     status,
     HTTPException,
+    Query,
 )
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette.requests import Request
@@ -17,8 +18,10 @@ from src.db.db import get_session
 from src.schemas.url import (
     UrlRequestCreateSchema,
     UrlResponseSchema,
+    UrlFullStatsResponseSchema,
+    UrlStatsResponseSchema,
 )
-from src.schemas.visit import VisitDBSchema
+from src.schemas.visit import VisitDBSchema, VisitNestedSchema
 
 router = APIRouter(tags=["Url Shortener"])
 
@@ -61,3 +64,39 @@ async def redirect_by_short_url(
     )
 
     return Response(status_code=status.HTTP_307_TEMPORARY_REDIRECT, headers={'Location': result.original_url})
+
+
+@router.get(
+    '/{short_url_id}/status/',
+    response_model=UrlFullStatsResponseSchema | UrlStatsResponseSchema,
+    response_model_exclude_none=True,
+    status_code=status.HTTP_200_OK
+)
+async def get_short_url_status(
+    *,
+    db: AsyncSession = Depends(get_session),
+    short_url_id: int,
+    full_info: Optional[bool] = Query(default=False),
+    max_results: Optional[int] = Query(default=10),
+    offset: Optional[int] = Query(default=0),
+):
+    result = await url.get(db, short_url_id)
+    if not result:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='URL not found')
+    visits_count = await url.get_visits_count(db, short_url_id)
+    if full_info:
+        visit_history = await visit.get_visits_by_url_id(db, short_url_id, skip=offset, limit=max_results)
+        return UrlFullStatsResponseSchema(
+            original_url=result.original_url,
+            short_url=result.short_url,
+            visits_count=visits_count,
+            visits=[VisitNestedSchema(**vis.__dict__) for vis in visit_history]
+        )
+
+    return UrlStatsResponseSchema(
+        original_url=result.original_url,
+        short_url=result.short_url,
+        visits_count=visits_count,
+    )
+
+

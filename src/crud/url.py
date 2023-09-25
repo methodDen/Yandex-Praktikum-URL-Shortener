@@ -1,6 +1,7 @@
 from typing import List
 
 from fastapi.encoders import jsonable_encoder
+from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.crud.base import CRUDBase
@@ -37,6 +38,14 @@ class CRUDUrl(CRUDBase[Url, UrlCreateSchema, UrlUpdateSchema]):
         for db_obj in db_objs:
             await db.refresh(db_obj)
         return db_objs
+
+    async def get_visits_count(self, db: AsyncSession, url_id: int) -> int:
+        """
+        Get visits count for each url
+        """
+        query = select(func.count(self.model.visits)).where(self.model.id == url_id)
+        result = await db.execute(query)
+        return result.scalar_one()
 
 
 url = CRUDUrl(Url)

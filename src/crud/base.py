@@ -5,7 +5,6 @@ from sqlalchemy import select
 from src.db.base_class import Base
 from sqlalchemy.ext.asyncio import AsyncSession
 from pydantic import BaseModel
-from src.services.url import generate_random_url
 
 
 ModelType = TypeVar("ModelType", bound=Base)
