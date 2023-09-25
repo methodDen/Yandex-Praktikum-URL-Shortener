@@ -113,3 +113,21 @@ pip install poetry
 ```bash
 poetry install
 ```
+4. Заполните переменные окружения и переименуйте файл .env.example в .env
+5. Запустите базу данных
+```bash
+docker-compose up -d --build
+```
+6. Запустите миграции
+```bash
+alembic upgrade head
+```
+7. Запустите приложение
+```bash
+uvicorn src.main:app --reload
+```
+8. Перейдите по адресу http://localhost:8000/api/openapi для просмотра документации
+9. Запустите тесты
+```bash
+pytest
+```
