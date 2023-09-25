@@ -1,6 +1,6 @@
 from sqlalchemy import (
     Column,
-    String,
+    String, Integer,
 )
 
 from src.db.base_class import Base
@@ -12,7 +12,9 @@ class Url(
     Base,
 ):
     __tablename__ = "url"
-    original_url = Column(String(1024), unique=True)
+    original_url = Column(String(1024), nullable=False,)
+    short_url = Column(String(1024), nullable=False, unique=True)
+    number_of_visits = Column(Integer, default=0)
 
     def __repr__(self):
         return (

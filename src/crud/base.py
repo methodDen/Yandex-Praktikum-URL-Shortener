@@ -5,6 +5,7 @@ from sqlalchemy import select
 from src.db.base_class import Base
 from sqlalchemy.ext.asyncio import AsyncSession
 from pydantic import BaseModel
+from src.services.url import generate_random_url
 
 
 ModelType = TypeVar("ModelType", bound=Base)
@@ -50,6 +51,7 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         Create a new row in the database
         """
         obj_in_data = jsonable_encoder(obj_in)
+        obj_in_data['short_url'] = generate_random_url()
         db_obj = self.model(**obj_in_data)
         db.add(db_obj)
         await db.commit()

@@ -6,17 +6,20 @@ from fastapi import (
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.db.db import get_session
+from src.schemas.url import UrlRequestCreateSchema, UrlResponseSchema
+from src.crud.url import url
+
 
 router = APIRouter(tags=["Url Shortener"])
 
 
-@router.post("/", response_model=None, status_code=status.HTTP_201_CREATED)
+@router.post("/", response_model=UrlResponseSchema, status_code=status.HTTP_201_CREATED)
 async def create_short_url(
     *,
     db: AsyncSession = Depends(get_session),
-    url_in: None,
+    url_in: UrlRequestCreateSchema,
 ):
-    pass
+    return await url.create(db, obj_in=url_in)
 
 
 @router.post('/batch/', response_model=None)
