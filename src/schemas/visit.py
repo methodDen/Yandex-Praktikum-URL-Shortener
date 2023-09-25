@@ -15,3 +15,8 @@ class VisitCreateSchema(VisitBaseSchema):
 
 class VisitUpdateSchema(VisitBaseSchema):
     pass
+
+
+class VisitDBSchema(BaseModel):
+    user_ip: str
+    url_id: int

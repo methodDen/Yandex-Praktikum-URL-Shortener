@@ -15,7 +15,6 @@ class TimestampMixin:
         TIMESTAMP(),
         default=__datetime_func__,
         nullable=False,
-        doc="Дата создания",
     )
     updated_at = Column(
         __updated_at_name__,
@@ -23,5 +22,4 @@ class TimestampMixin:
         default=__datetime_func__,
         onupdate=__datetime_func__,
         nullable=False,
-        doc="Дата обновления",
     )
