@@ -1,4 +1,7 @@
-from sqlalchemy import Column, Integer
+from sqlalchemy import (
+    Column,
+    Integer,
+)
 from sqlalchemy.ext.declarative import as_declarative
 from sqlalchemy.orm import declared_attr
 
