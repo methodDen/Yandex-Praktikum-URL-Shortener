@@ -1,20 +1,16 @@
 from fastapi import (
     APIRouter,
     Depends,
-    HTTPException,
     status,
 )
 from sqlalchemy.ext.asyncio import AsyncSession
-from starlette.responses import JSONResponse
 
 from src.db.db import get_session
-from src.services.health_check import ping_database
-from src.schemas.base import MessageResponse
 
 router = APIRouter(tags=["Url Shortener"])
 
 
-@router.post("/", response_model=None)
+@router.post("/", response_model=None, status_code=status.HTTP_201_CREATED)
 async def create_short_url(
     *,
     db: AsyncSession = Depends(get_session),

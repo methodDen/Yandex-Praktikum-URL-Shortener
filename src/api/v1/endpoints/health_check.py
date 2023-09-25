@@ -14,7 +14,7 @@ from src.schemas.base import MessageResponse
 router = APIRouter(tags=["Health Check"])
 
 
-@router.get("/ping/", response_model=MessageResponse)
+@router.get("/ping/", response_model=MessageResponse, status_code=status.HTTP_200_OK)
 async def check_database_health(
     *,
     db: AsyncSession = Depends(get_session),
