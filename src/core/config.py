@@ -15,6 +15,9 @@ class AppSettings(BaseSettings):
     database_dsn: str
     host: str = "127.0.0.1"
     port: int = 8080
+    blacklist: list[str] = [
+
+    ]
 
     class Config:
         env_file = ".env"
