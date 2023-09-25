@@ -1,4 +1,11 @@
-from typing import Any, Generic, Optional, Type, TypeVar, List
+from typing import (
+    Any,
+    Generic,
+    Optional,
+    Type,
+    TypeVar,
+    List,
+)
 
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy import select

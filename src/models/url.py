@@ -1,6 +1,7 @@
 from sqlalchemy import (
     Column,
-    String, Integer,
+    String,
+    Integer,
 )
 from sqlalchemy.orm import relationship
 

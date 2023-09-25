@@ -1,6 +1,9 @@
 from fastapi import APIRouter
 
-from src.api.v1.endpoints import (health_check, url,)
+from src.api.v1.endpoints import (
+    health_check,
+    url,
+)
 
 base_router = APIRouter()
 

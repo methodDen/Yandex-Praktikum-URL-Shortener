@@ -1,4 +1,8 @@
-from sqlalchemy import Column, TIMESTAMP, func
+from sqlalchemy import (
+    Column,
+    TIMESTAMP,
+    func,
+)
 from sqlalchemy.orm import declarative_mixin
 
 

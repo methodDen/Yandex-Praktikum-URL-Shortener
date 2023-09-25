@@ -1,6 +1,10 @@
 from sqlalchemy import (
     Column,
-    String, Integer, TIMESTAMP, func, ForeignKey,
+    String,
+    Integer,
+    TIMESTAMP,
+    func,
+    ForeignKey,
 )
 from sqlalchemy.orm import relationship
 

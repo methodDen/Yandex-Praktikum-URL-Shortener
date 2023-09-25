@@ -3,9 +3,9 @@ from typing import List, Optional
 from fastapi import (
     APIRouter,
     Depends,
-    status,
     HTTPException,
     Query,
+    status,
 )
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette.requests import Request
@@ -21,7 +21,10 @@ from src.schemas.url import (
     UrlFullStatsResponseSchema,
     UrlStatsResponseSchema,
 )
-from src.schemas.visit import VisitDBSchema, VisitNestedSchema
+from src.schemas.visit import (
+    VisitDBSchema,
+    VisitNestedSchema,
+)
 
 router = APIRouter(tags=["Url Shortener"])
 
