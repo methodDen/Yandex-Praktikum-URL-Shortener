@@ -2,5 +2,5 @@
 .idea/
 __pycache__/
 *.pyc
-.env
+.env.example
 postgres_data/

@@ -8,7 +8,7 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 from alembic import context
 from dotenv import load_dotenv
 
-load_dotenv(".env")
+load_dotenv(".env.example")
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
