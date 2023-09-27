@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, Annotated
 
 from fastapi import (
     APIRouter,
@@ -80,8 +80,8 @@ async def get_short_url_status(
     db: AsyncSession = Depends(get_session),
     short_url_id: int,
     full_info: Optional[bool] = Query(default=False),
-    max_results: Optional[int] = Query(default=10),
-    offset: Optional[int] = Query(default=0),
+    max_results: Annotated[int, Query(description="Pagination page size", ge=1)] = 10,
+    offset: Annotated[int, Query(description="Pagination page offset", ge=0)] = 0,
 ):
     result = await url.get(db, short_url_id)
     if not result:

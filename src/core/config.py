@@ -16,6 +16,7 @@ class AppSettings(BaseSettings):
     host: str = "127.0.0.1"
     port: int = 8080
     blacklist: list[str] = []
+    log_database: bool = True
 
     class Config:
         env_file = ".env"

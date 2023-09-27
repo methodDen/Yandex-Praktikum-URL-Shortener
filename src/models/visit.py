@@ -19,7 +19,7 @@ class Visit(
     __tablename__ = "visit"
     user_ip = Column(String(1024), nullable=False,)
     visit_datetime = Column(TIMESTAMP(), nullable=False, default=func.now())
-    url_id = Column(Integer, ForeignKey("url.id"))
+    url_id = Column(Integer, ForeignKey("url.id", ondelete="CASCADE"), nullable=False,)
     url = relationship("Url", back_populates="visits")
 
     def __repr__(self):

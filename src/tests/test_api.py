@@ -1,6 +1,6 @@
 import pytest
 from httpx import AsyncClient
-from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi import status
 
 
 @pytest.mark.asyncio
@@ -8,7 +8,7 @@ async def test_ping_db(
     async_client: AsyncClient,
 ):
     response = await async_client.get("/api/v1/health-check/ping/")
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
     assert response.json() == {'message': 'Database is healthy'}
 
 
@@ -23,7 +23,7 @@ async def test_create_short_url(
         "/api/v1/url/",
         json=payload,
     )
-    assert response.status_code == 201
+    assert response.status_code == status.HTTP_201_CREATED
     json = response.json()
     assert json['original_url'] == payload['original_url']
 
@@ -44,7 +44,7 @@ async def test_create_short_url_batch(
         "/api/v1/url/batch/",
         json=payload,
     )
-    assert response.status_code == 201
+    assert response.status_code == status.HTTP_201_CREATED
     json = response.json()
     assert len(json) == len(payload)
     assert json[0]['original_url'] == payload[0]['original_url']
